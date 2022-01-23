@@ -1,0 +1,9 @@
+[package]
+name = "minuit"
+version = "0.1.0"
+edition = "2021"
+description = "Minimal GUI framework"
+license = "MIT"
+
+[dependencies]
+sdl2 = "0.35.1"
