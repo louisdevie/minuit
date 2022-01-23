@@ -1,1 +1,1 @@
-# minui
+# minUI
