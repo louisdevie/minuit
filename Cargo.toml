@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 description = "Minimal GUI framework"
 license = "MIT"
+documentation = "https://github.com/louisdevie/minuit"
+homepage = "https://github.com/louisdevie/minuit"
+repository = "https://github.com/louisdevie/minuit"
 
 [dependencies]
 sdl2 = "0.35.1"
