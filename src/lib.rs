@@ -1,5 +1,1 @@
-mod test {
-    pub fn say_hello() {
-        println!("Hello !");
-    }
-}
+pub mod window;

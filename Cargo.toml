@@ -10,3 +10,4 @@ repository = "https://github.com/louisdevie/minuit"
 
 [dependencies]
 sdl2 = "0.35.1"
+
