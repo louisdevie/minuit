@@ -1,7 +1,9 @@
 extern crate minuit;
 
-use minuit::window::say_hello;
+use minuit::app::{app, run};
 
 fn main() {
-    say_hello();
+    let demo = app("MinUIt demonstration");
+
+    run(demo);
 }
