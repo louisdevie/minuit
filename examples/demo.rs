@@ -1,9 +1,9 @@
 extern crate minuit;
 
-use minuit::app::{app, run};
+use minuit::app::App;
 
 fn main() {
-    let demo = app("MinUIt demonstration");
+    let demo = App::new("MinUIt demonstration");
 
-    run(demo);
+    demo.run();
 }
