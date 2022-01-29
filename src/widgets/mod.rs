@@ -1,1 +1,6 @@
-pub mod label;
+mod label;
+
+enum Widget {
+    Some(label::Label),
+    None,
+}
