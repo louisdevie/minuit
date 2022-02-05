@@ -8,6 +8,6 @@ documentation = "https://github.com/louisdevie/minuit"
 homepage = "https://github.com/louisdevie/minuit"
 repository = "https://github.com/louisdevie/minuit"
 
-[dependencies]
-sdl2 = "0.35.1"
-
+[dependencies.sdl2]
+version = "0.35.1"
+features = ["ttf"]
