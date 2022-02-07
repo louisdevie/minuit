@@ -5,7 +5,6 @@ use sdl2::ttf::Sdl2TtfContext;
 use sdl2::{Sdl, VideoSubsystem};
 use std::time::Duration;
 
-use crate::font::FontManager;
 use crate::renderer::Renderer;
 use crate::widget::Widget;
 
@@ -23,8 +22,6 @@ pub struct App<'lt> {
     name: String,
 
     pub root: Widget<'lt>,
-
-    fonts: FontManager<'lt>,
 }
 
 impl App<'_> {
@@ -35,14 +32,12 @@ impl App<'_> {
         let ctx = sdl2::init().unwrap();
         let vss = ctx.video().unwrap();
         let ttf = sdl2::ttf::init().unwrap();
-        let fonts = FontManager::load(&ttf);
         Self {
             sdl_context: ctx,
             sdl_video: vss,
             sdl_font: ttf,
             name: String::from(name),
             root,
-            fonts,
         }
     }
 
@@ -59,6 +54,8 @@ impl App<'_> {
 
         let mut renderer = Renderer::new(window);
         let mut event_pump = self.sdl_context.event_pump().unwrap();
+
+        let font_body = self.sdl_font.load_font("Roboto-Regular.ttf", 12).unwrap();
 
         let delay = Duration::new(0, 30_000_000u32);
 

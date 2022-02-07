@@ -10,4 +10,5 @@ repository = "https://github.com/louisdevie/minuit"
 
 [dependencies.sdl2]
 version = "0.35.1"
+default-features = false
 features = ["ttf"]
