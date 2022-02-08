@@ -1,44 +1,31 @@
-pub struct Area {
-    absx: i32,
-    absy: i32,
-    relx: f32,
-    rely: f32,
-    absw: i32,
-    absh: i32,
-    relw: f32,
-    relh: f32,
-}
+extern crate sdl2;
 
-impl Area {
-    fn default() -> Self {
-        Self {
-            absx: 0,
-            absy: 0,
-            relx: 0.0,
-            rely: 0.0,
-            absw: 0,
-            absh: 0,
-            relw: 1.0,
-            relh: 1.0,
-        }
-    }
-}
+use sdl2::pixels::PixelFormatEnum;
+use sdl2::surface::Surface;
 
-pub enum Widget<'lt> {
+use crate::area::Area;
+use crate::property::Property;
+
+pub enum Widget<'w> {
     Label {
-        first_child: &'lt Self,
-        next_sibling: &'lt Self,
+        next_sibling: &'w Self,
         area: Area,
+
+        text: Property<String>,
+        alignment: super::Alignment,
+        texture: Surface<'w>,
     },
     None,
 }
 
 impl Widget<'_> {
-    pub fn centered_label(_initial_text: &str) -> Self {
+    pub fn new_label(initial_text: &str, alignment: super::Alignment) -> Self {
         Self::Label {
-            first_child: &Self::None,
             next_sibling: &Self::None,
             area: Area::default(),
+            text: Property::initial(String::from(initial_text)),
+            alignment,
+            texture: Surface::new(1, 1, PixelFormatEnum::RGB24).unwrap(),
         }
     }
 }

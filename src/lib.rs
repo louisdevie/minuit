@@ -1,3 +1,13 @@
 pub mod app;
-pub mod renderer;
+mod area;
+mod bindata;
+mod property;
+mod renderer;
 pub mod widget;
+
+pub enum Alignment {
+    LEFT,
+    RIGHT,
+    CENTER,
+    JUSTIFY,
+}

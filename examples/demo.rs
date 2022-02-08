@@ -2,11 +2,12 @@ extern crate minuit;
 
 use minuit::app::App;
 use minuit::widget::Widget;
+use minuit::Alignment;
 
 fn main() {
     let demo = App::new(
         "MinUIt demonstration",
-        Widget::centered_label("Hello, World!"),
+        Widget::new_label("Hello, World!", Alignment::LEFT),
     );
 
     demo.run();

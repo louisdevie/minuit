@@ -52,10 +52,10 @@ impl App<'_> {
             .build()
             .unwrap();
 
+        let font_body = self.sdl_font.load_font("Roboto-Regular.ttf", 12).unwrap();
+
         let mut renderer = Renderer::new(window);
         let mut event_pump = self.sdl_context.event_pump().unwrap();
-
-        let font_body = self.sdl_font.load_font("Roboto-Regular.ttf", 12).unwrap();
 
         let delay = Duration::new(0, 30_000_000u32);
 
