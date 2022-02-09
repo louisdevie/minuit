@@ -44,7 +44,7 @@ impl App<'_> {
     /// Runs the main loop of the app.
     /// Should be called at the end of the main function,
     /// once the app is set up.
-    pub fn run(&self) {
+    pub fn run(&mut self) {
         let window = self
             .sdl_video
             .window(&self.name, 600, 400)
@@ -52,9 +52,9 @@ impl App<'_> {
             .build()
             .unwrap();
 
-        let font_body = self.sdl_font.load_font("Roboto-Regular.ttf", 12).unwrap();
-
         let mut renderer = Renderer::new(window);
+        renderer.font_body = Some(self.sdl_font.load_font("Roboto-Regular.ttf", 12).unwrap());
+
         let mut event_pump = self.sdl_context.event_pump().unwrap();
 
         let delay = Duration::new(0, 30_000_000u32);
@@ -67,7 +67,7 @@ impl App<'_> {
                 }
             }
 
-            renderer.draw(&self.root);
+            renderer.draw(&mut self.root);
 
             ::std::thread::sleep(delay);
         }

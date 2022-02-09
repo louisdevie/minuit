@@ -1,19 +1,14 @@
-extern crate sdl2;
-
-use sdl2::pixels::PixelFormatEnum;
-use sdl2::surface::Surface;
-
 use crate::area::Area;
-use crate::property::Property;
+use crate::property::StringProperty;
 
 pub enum Widget<'w> {
     Label {
         next_sibling: &'w Self,
         area: Area,
 
-        text: Property<String>,
+        text: StringProperty,
         alignment: super::Alignment,
-        texture: Surface<'w>,
+        surface_reference: u32,
     },
     None,
 }
@@ -23,9 +18,16 @@ impl Widget<'_> {
         Self::Label {
             next_sibling: &Self::None,
             area: Area::default(),
-            text: Property::initial(String::from(initial_text)),
+            text: StringProperty::initial(initial_text),
             alignment,
-            texture: Surface::new(1, 1, PixelFormatEnum::RGB24).unwrap(),
+            surface_reference: 0,
+        }
+    }
+
+    pub fn set_text(&mut self, new_text: &str) {
+        match self {
+            Self::Label { text, .. } => text.set(new_text),
+            Self::None => {}
         }
     }
 }

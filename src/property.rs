@@ -1,17 +1,25 @@
-pub struct Property<T> {
-    value: T,
+pub struct StringProperty {
+    value: String,
     changed: bool,
 }
 
-impl<T> Property<T> {
-    pub fn initial(value: T) -> Self {
+impl StringProperty {
+    pub fn initial(value: &str) -> Self {
         Self {
-            value,
+            value: String::from(value),
             changed: true,
         }
     }
 
     pub fn has_changed(&self) -> bool {
         self.changed
+    }
+
+    pub fn get(&self) -> String {
+        String::from(&self.value)
+    }
+
+    pub fn set(&mut self, value: &str) {
+        self.value = String::from(value);
     }
 }

@@ -5,7 +5,7 @@ use minuit::widget::Widget;
 use minuit::Alignment;
 
 fn main() {
-    let demo = App::new(
+    let mut demo = App::new(
         "MinUIt demonstration",
         Widget::new_label("Hello, World!", Alignment::LEFT),
     );
