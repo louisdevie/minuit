@@ -9,5 +9,4 @@ pub enum Alignment {
     LEFT,
     RIGHT,
     CENTER,
-    JUSTIFY,
 }

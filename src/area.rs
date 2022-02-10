@@ -2,15 +2,21 @@ extern crate sdl2;
 
 use sdl2::rect::Rect;
 
-fn scale(a: i32, b: f32) -> i32 {
+fn scale(a: u32, b: f32) -> i32 {
     (b * a as f32).round() as i32
 }
 
-fn safe_size(val: i32) -> u32 {
-    if val < 0 {
-        0
-    } else {
-        val.try_into().unwrap()
+pub fn safe_unsigned(val: i32) -> u32 {
+    match val.try_into() {
+        Err(_) => 0,
+        Ok(result) => result,
+    }
+}
+
+pub fn safe_signed(val: u32) -> i32 {
+    match val.try_into() {
+        Err(_) => i32::MAX,
+        Ok(result) => result,
     }
 }
 
@@ -26,10 +32,10 @@ pub struct Area {
 }
 
 pub struct ResolvedArea {
-    x: i32,
-    y: i32,
-    w: i32,
-    h: i32,
+    pub x: i32,
+    pub y: i32,
+    pub w: u32,
+    pub h: u32,
 }
 
 impl Area {
@@ -50,14 +56,23 @@ impl Area {
         ResolvedArea {
             x: parent_area.x + self.absx + scale(parent_area.w, self.relx),
             y: parent_area.y + self.absy + scale(parent_area.h, self.rely),
-            w: self.absw + scale(parent_area.w, self.relw),
-            h: self.absh + scale(parent_area.h, self.relh),
+            w: safe_unsigned(self.absw + scale(parent_area.w, self.relw)),
+            h: safe_unsigned(self.absh + scale(parent_area.h, self.relh)),
         }
     }
 }
 
 impl ResolvedArea {
-    pub fn as_sdl_rect(&self) -> Rect {
-        Rect::new(self.x, self.y, safe_size(self.w), safe_size(self.h))
+    pub fn into_sdl_rect(&self) -> Rect {
+        Rect::new(self.x, self.y, self.w, self.h)
+    }
+
+    pub fn from_sdl_rect(rect: &Rect) -> Self {
+        Self {
+            x: rect.x(),
+            y: rect.y(),
+            w: rect.width(),
+            h: rect.height(),
+        }
     }
 }
