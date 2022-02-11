@@ -6,7 +6,7 @@ pub struct StringProperty {
 
 impl StringProperty {
     /// Creates a new StringProperty.
-    /// ## Arguments
+    /// # Arguments
     /// * `value` : the initial value of the property
     pub fn initial(value: &str) -> Self {
         Self {
@@ -16,7 +16,7 @@ impl StringProperty {
     }
 
     /// Check if the property was modified.
-    /// ## Returns
+    /// # Returns
     /// A boolean, wether the property was modified or not
     pub fn has_changed(&self) -> bool {
         self.changed

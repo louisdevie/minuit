@@ -1,10 +1,10 @@
 [package]
 name = "minuit"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "Minimal GUI framework"
 license = "MIT"
-documentation = "https://github.com/louisdevie/minuit"
+documentation = "https://docs.rs/minuit/0.2.0"
 homepage = "https://github.com/louisdevie/minuit"
 repository = "https://github.com/louisdevie/minuit"
 

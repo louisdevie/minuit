@@ -26,7 +26,7 @@ pub struct App<'lt> {
 
 impl App<'_> {
     /// Creates a new application instance.
-    /// ## Arguments
+    /// # Arguments
     /// * `name` : the name of the app
     pub fn new(name: &str, root: Widget<'static>) -> Self {
         let ctx = sdl2::init().unwrap();
