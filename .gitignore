@@ -1,3 +1,4 @@
 /target
 *.sublime-workspace
 venv
+Cargo.lock
