@@ -1,4 +1,5 @@
 /// A string property
+#[derive(Debug, Clone)]
 pub struct StringProperty {
     value: String,
     changed: bool,

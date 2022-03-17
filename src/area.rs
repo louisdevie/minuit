@@ -20,17 +20,19 @@ pub fn safe_signed(val: u32) -> i32 {
     }
 }
 
+#[derive(Debug, Copy, Clone)]
 pub struct Area {
-    absx: i32,
-    absy: i32,
-    relx: f32,
-    rely: f32,
-    absw: i32,
-    absh: i32,
-    relw: f32,
-    relh: f32,
+    pub absx: i32,
+    pub absy: i32,
+    pub relx: f32,
+    pub rely: f32,
+    pub absw: i32,
+    pub absh: i32,
+    pub relw: f32,
+    pub relh: f32,
 }
 
+#[derive(Debug, Copy, Clone)]
 pub struct ResolvedArea {
     pub x: i32,
     pub y: i32,
@@ -39,7 +41,7 @@ pub struct ResolvedArea {
 }
 
 impl Area {
-    pub fn default() -> Self {
+    pub fn new() -> Self {
         Self {
             absx: 0,
             absy: 0,
@@ -47,8 +49,8 @@ impl Area {
             rely: 0.0,
             absw: 0,
             absh: 0,
-            relw: 1.0,
-            relh: 1.0,
+            relw: 0.0,
+            relh: 0.0,
         }
     }
 
@@ -58,6 +60,21 @@ impl Area {
             y: parent_area.y + self.absy + scale(parent_area.h, self.rely),
             w: safe_unsigned(self.absw + scale(parent_area.w, self.relw)),
             h: safe_unsigned(self.absh + scale(parent_area.h, self.relh)),
+        }
+    }
+}
+
+impl Default for Area {
+    fn default() -> Self {
+        Self {
+            absx: 0,
+            absy: 0,
+            relx: 0.0,
+            rely: 0.0,
+            absw: 0,
+            absh: 0,
+            relw: 1.0,
+            relh: 1.0,
         }
     }
 }

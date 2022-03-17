@@ -1,0 +1,4 @@
+VerticalLayout {
+	Label(text="Hello, World!")
+	Button(text="Click me")
+}
