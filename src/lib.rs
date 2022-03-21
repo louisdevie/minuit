@@ -67,4 +67,18 @@ macro_rules! free_layout {
     () => {
         minuit::widget::Widget::new_free_layout(minuit::area::Area::default())
     };
+    ($area:expr) => {
+        minuit::widget::Widget::new_free_layout($area)
+    };
+}
+
+
+#[macro_export]
+macro_rules! vertical_layout {
+    () => {
+        minuit::widget::Widget::new_vertical_layout(minuit::area::Area::default())
+    };
+    ($area:expr) => {
+        minuit::widget::Widget::new_vertical_layout($area)
+    };
 }

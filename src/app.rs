@@ -13,9 +13,6 @@ pub struct WidgetManager {
     free: Vec<WidgetUId>,
 }
 
-#[derive(Debug)]
-pub struct WidgetView(Vec<Widget>);
-
 impl WidgetManager {
     pub fn new() -> Self {
         Self {
@@ -57,14 +54,8 @@ impl WidgetManager {
         }
     }
 
-    pub fn view(&self) -> WidgetView {
-        WidgetView(self.widgets.clone())
-    }
-}
-
-impl WidgetView {
-    pub fn get(&self, widget: WidgetUId) -> &Widget {
-        self.0.get(widget).unwrap()
+    pub fn view(&self) -> Vec<Widget> {
+        self.widgets.clone()
     }
 }
 

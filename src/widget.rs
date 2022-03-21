@@ -15,6 +15,10 @@ pub enum Widget {
         area: Area,
         children: Vec<WidgetUId>,
     },
+    VerticalLayout {
+        area: Area,
+        children: Vec<WidgetUId>,
+    },
     None,
 }
 
@@ -45,6 +49,15 @@ impl Widget {
         match self {
             Self::FreeLayout { children, .. } => children.push(widget),
             _ => {}
+        }
+    }
+
+    pub fn area(&self) -> Area {
+        match self {
+            Widget::Label { area, .. } => *area,
+            Widget::FreeLayout { area, .. } => *area,
+            Widget::VerticalLayout { area, .. } => *area,
+            Widget::None => Area::new(),
         }
     }
 }

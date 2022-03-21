@@ -9,8 +9,7 @@ use sdl2::surface::Surface;
 use sdl2::ttf::Font;
 use sdl2::video::{Window, WindowContext};
 
-use crate::app::WidgetView;
-use crate::area::{safe_signed, ResolvedArea};
+use crate::area::{safe_signed, safe_unsigned, scale, ResolvedArea};
 use crate::widget::{Widget, WidgetUId};
 use crate::Alignment;
 
@@ -37,7 +36,7 @@ impl<'r> Renderer<'r> {
         }
     }
 
-    pub fn draw(&mut self, root: WidgetUId, widgets: WidgetView) {
+    pub fn draw(&mut self, root: WidgetUId, widgets: Vec<Widget>) {
         self.canvas.set_draw_color(Color::RGB(255, 255, 255));
         self.canvas.clear();
 
@@ -60,9 +59,9 @@ impl<'r> Renderer<'r> {
         &mut self,
         widget: WidgetUId,
         parent_area: ResolvedArea,
-        widgets: &WidgetView,
+        widgets: &Vec<Widget>,
     ) {
-        match widgets.get(widget) {
+        match widgets.get(widget).unwrap() {
             Widget::Label {
                 text,
                 alignment,
@@ -79,7 +78,6 @@ impl<'r> Renderer<'r> {
                         .blended(Color::RGBA(0, 0, 0, 255))
                         .unwrap();
                     self.surface_cache.insert(widget, surface);
-                    dbg!(resolved);
                 }
 
                 let texture = self
@@ -113,6 +111,32 @@ impl<'r> Renderer<'r> {
 
                 for child in children {
                     self.draw_widget_recursive(*child, resolved, widgets);
+                }
+            }
+            Widget::VerticalLayout { area, children } => {
+                let resolved = area.resolve(parent_area);
+                let absolute: i32 = children.iter().map(|wid| widgets.get(*wid).unwrap().area().absh).sum();
+                let remaining = safe_unsigned(safe_signed(resolved.h) - absolute);
+                let relative: f32 = children.iter().map(|wid| widgets.get(*wid).unwrap().area().relh).sum();
+                println!("{}", relative);
+                let mut y = 0;
+
+                for child in children {
+                    self.draw_widget_recursive(
+                        *child,
+                        ResolvedArea {
+                            x: resolved.x, 
+                            y,
+                            w: resolved.w,
+                            h: safe_unsigned(
+                                scale(
+                                    remaining,
+                                    widgets.get(*child).unwrap().area().relh / relative,
+                                )
+                            ),
+                        }, 
+                        widgets,
+                    );
                 }
             }
             Widget::None => {}

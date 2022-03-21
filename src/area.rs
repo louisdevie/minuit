@@ -2,7 +2,7 @@ extern crate sdl2;
 
 use sdl2::rect::Rect;
 
-fn scale(a: u32, b: f32) -> i32 {
+pub fn scale(a: u32, b: f32) -> i32 {
     (b * a as f32).round() as i32
 }
 
